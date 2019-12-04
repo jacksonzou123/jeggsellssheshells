@@ -1,1 +1,1 @@
-char * getArgs();
+char ** getArgs();

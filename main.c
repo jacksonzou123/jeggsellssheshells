@@ -9,8 +9,8 @@
 int main(int argc, char *argv[]) {
   while (1) {
     printf("GIMME THAT COMMAND: ");
-    char * input = getArgs();
-    printf("%s", input);
+    char ** input = getArgs();
+    //printf("%s", input);
   }
   return 0;
 }

@@ -6,8 +6,25 @@
 #include <signal.h>
 #include "get.h"
 
-char * getArgs() {
-  char * input = malloc(100 * sizeof(char));
+char ** getArgs() {
+  char input[100];
   fgets(input, 100, stdin);
-  return input;
+  if (input[strlen(input) - 1] == '\n') {
+    input[strlen(input) - 1] = '\0';
+  }
+  char * p = input;
+  char ** list = 0;
+  int i = 0;
+  while (p) {
+    char * hold = strsep(&p, " ");
+    list = realloc(list, (i+1) * sizeof(char*));
+    *(list+i) = hold;
+    i++;
+  }
+  printf("%d\n",i);
+  i = 0;
+  while (*(list + i)) {
+    printf("[%s]\n", *(list + i++));
+  }
+  return list;
 }
