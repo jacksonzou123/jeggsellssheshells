@@ -14,7 +14,7 @@ char ** getArgs() {
     input[strlen(input) - 1] = '\0';
   }
   char * p = input;
-  char **list = calloc(100, sizeof(char*));
+  char **list = calloc(1, sizeof(char*));
   int i = 0;
   while (p) {
     char * hold = strsep(&p, " ");
