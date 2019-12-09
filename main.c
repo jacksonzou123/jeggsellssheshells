@@ -5,6 +5,8 @@
 #include <string.h>
 #include <signal.h>
 #include <errno.h>
+#include <dirent.h>
+#include <sys/types.h>
 #include "get.h"
 
 int main(int argc, char *argv[]) {
@@ -20,8 +22,9 @@ int main(int argc, char *argv[]) {
     // //printf("size of array: %ld\n", sizeof(input));
     // int status = execvp("ls", input);
     // printf("status: %d , error: %s\n", status, strerror(errno));
-
-    printf("GImme that command: ");
+    char cwd[100];
+    getcwd(cwd, sizeof(cwd));
+    printf("%s ", cwd);
     char input[100];
     fgets(input, 100, stdin);
     if (input[strlen(input) - 1] == '\n') {
@@ -32,31 +35,38 @@ int main(int argc, char *argv[]) {
     int i = 0;
     while (p) {
       char * hold = strsep(&p, " ");
-      //list = realloc(list, (i+1) * sizeof(char*));
-      //printf("size of array: %d\n", i+1);
       *(list+i) = hold;
       i++;
     }
     *(list+i) = NULL;
-
-    int f = fork();
-    //printf("f: %d\n", f);
-    if (f) {
-      //parent
-      int * status;
-      wait(status);
-      //printf("parent finished\n");
+    if (!strcmp(*(list), "cd")) {
+      int status = chdir(*(list+1));
+      if (status == -1) {
+        printf("Error: %s\n", strerror(errno));
+      }
     }
     else {
-      //kid
-      int status = execvp(list[0], list);
-      //i = 0;
-      // while (*(input+i)) {
-      //   printf("[%s]\n", *(input+i));
-      //   i++;
-      // }
-      //printf("status: %s\n", strerror(errno));
-      return 0;
+      int f = fork();
+      //printf("f: %d\n", f);
+      if (f) {
+        //parent
+        int * status;
+        wait(status);
+        //printf("parent finished\n");
+      }
+      else {
+        //kid
+        int status = execvp(list[0], list);
+        //i = 0;
+        // while (*(input+i)) {
+        //   printf("[%s]\n", *(input+i));
+        //   i++;
+        // }
+        if (status == -1) {
+          printf("Error: %s\n", strerror(errno));
+        }
+        return 0;
+      }
     }
     //printf("%s", input);
   }
