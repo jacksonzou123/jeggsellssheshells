@@ -9,3 +9,6 @@ get.o: get.c get.h
 
 parse.o: parse.c parse.h
 	gcc -c parse.c
+
+run:
+	./program 

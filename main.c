@@ -48,11 +48,6 @@ int main(int argc, char *argv[]) {
       else {
         //kid
         int status = execvp(list[0], list);
-        //i = 0;
-        // while (*(input+i)) {
-        //   printf("[%s]\n", *(input+i));
-        //   i++;
-        // }
         if (status == -1) {
           printf("Error: %s\n", strerror(errno));
         }
