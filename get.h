@@ -1,1 +1,3 @@
-char ** getArgs();
+void printcwd();
+
+char* getInput(char input[]);

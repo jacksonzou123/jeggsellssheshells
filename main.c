@@ -8,43 +8,34 @@
 #include <dirent.h>
 #include <sys/types.h>
 #include "get.h"
+#include "parse.h"
 
 int main(int argc, char *argv[]) {
   while (1) {
-    // printf("GIMME THAT COMMAND: ");
-    // char *input[] = getArgs();
-    // int i = 0;
-    // while (*(input+i)) {
-    //   printf("i: %d, str: [%s]\n", i, *(input+i));
-    //   i++;
-    // }
-    // *(input+i) = NULL;
-    // //printf("size of array: %ld\n", sizeof(input));
-    // int status = execvp("ls", input);
-    // printf("status: %d , error: %s\n", status, strerror(errno));
-    char cwd[100];
-    getcwd(cwd, sizeof(cwd));
-    printf("%s ", cwd);
+    printcwd();
+    //print current directory
+
     char input[100];
-    fgets(input, 100, stdin);
-    if (input[strlen(input) - 1] == '\n') {
-      input[strlen(input) - 1] = '\0';
-    }
-    char *p = input;
+    char *p = getInput(input);
+    //get user input
+
     char *list[100];
-    int i = 0;
-    while (p) {
-      char * hold = strsep(&p, " ");
-      *(list+i) = hold;
-      i++;
-    }
-    *(list+i) = NULL;
+    parseSpace(p, list);
+    //put input string into array
+
     if (!strcmp(*(list), "cd")) {
       int status = chdir(*(list+1));
       if (status == -1) {
         printf("Error: %s\n", strerror(errno));
       }
     }
+    //runs if user is trying to change directory
+
+    else if (!strcmp(*(list), "exit")) {
+      return 0;
+    }
+    //runs if user is trying to exit the program
+
     else {
       int f = fork();
       //printf("f: %d\n", f);
@@ -68,7 +59,7 @@ int main(int argc, char *argv[]) {
         return 0;
       }
     }
-    //printf("%s", input);
+    //any other command
   }
   return 0;
 }
