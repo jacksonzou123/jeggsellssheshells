@@ -44,3 +44,14 @@ int checkout(char *input[]) {
   }
   return 0;
 }
+
+int checkin(char *input[]) {
+  int i = 0;
+  while (*(input+i)) {
+    if (!strcmp(*(input+i), "<")) {
+      return i;
+    }
+    i++;
+  }
+  return 0;
+}
