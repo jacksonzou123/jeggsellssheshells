@@ -1,0 +1,15 @@
+total 28
+-rwxrwxrwx 1 jp6jacksino52110 jp6jacksino52110    20 Dec  3 10:52 README.md
+-rwxrwxrwx 1 jp6jacksino52110 jp6jacksino52110  8304 Dec  3 10:57 a.out
+-rwxrwxrwx 1 jp6jacksino52110 jp6jacksino52110   489 Dec  9 12:28 get.c
+-rwxrwxrwx 1 jp6jacksino52110 jp6jacksino52110    51 Dec  9 12:28 get.h
+-rwxrwxrwx 1 jp6jacksino52110 jp6jacksino52110  2112 Dec  9 12:28 get.o
+drwxrwxrwx 1 jp6jacksino52110 jp6jacksino52110  4096 Dec 10 10:48 jeg
+-rwxrwxrwx 1 jp6jacksino52110 jp6jacksino52110  2143 Dec 10 20:32 main.c
+-rwxrwxrwx 1 jp6jacksino52110 jp6jacksino52110  3568 Dec 10 20:32 main.o
+-rwxrwxrwx 1 jp6jacksino52110 jp6jacksino52110   208 Dec 10 10:21 makefile
+-rwxrwxrwx 1 jp6jacksino52110 jp6jacksino52110   822 Dec 10 20:24 parse.c
+-rwxrwxrwx 1 jp6jacksino52110 jp6jacksino52110   130 Dec 10 11:00 parse.h
+-rwxrwxrwx 1 jp6jacksino52110 jp6jacksino52110  2096 Dec 10 20:25 parse.o
+-rwxrwxrwx 1 jp6jacksino52110 jp6jacksino52110 13304 Dec 10 20:32 program
+-rwxrwxrwx 1 jp6jacksino52110 jp6jacksino52110   100 Dec 10 20:31 testin

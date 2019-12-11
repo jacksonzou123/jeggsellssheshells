@@ -7,6 +7,7 @@
 #include <errno.h>
 #include <dirent.h>
 #include <sys/types.h>
+#include <fcntl.h>
 #include "parse.h"
 
 void parseSpace(char *input, char *array[]) {
@@ -31,4 +32,15 @@ int countCharacter(char *input, char delimiter) {
     i++;
   }
   return final;
+}
+
+int checkout(char *input[]) {
+  int i = 0;
+  while (*(input+i)) {
+    if (!strcmp(*(input+i), ">")) {
+      return i;
+    }
+    i++;
+  }
+  return 0;
 }
