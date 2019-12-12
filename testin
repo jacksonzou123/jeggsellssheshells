@@ -1,13 +1,1 @@
-README.md
-a.out
-get.c
-get.h
-get.o
-main.c
-main.o
-makefile
-parse.c
-parse.h
-parse.o
-program
-testin
+ls -l

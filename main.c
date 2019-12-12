@@ -37,45 +37,47 @@ int main(int argc, char *argv[]) {
         if (newfile == -1) {
           printf("Error: %s\n", strerror(errno));
         }
-
-        int f = fork();
-        if (f) {
-          int * status;
-          wait(status);
-        }
         else {
-          //int stdout = dup(1);
-          dup2(newfile, 1);
-          *(list+out) = NULL;
-          int status = execvp(list[0], list);
-          if (status == -1) {
-            printf("Error: %s\n", strerror(errno));
+          int f = fork();
+          if (f) {
+            int * status;
+            wait(status);
           }
-          return 0;
+          else {
+            //int stdout = dup(1);
+            dup2(newfile, 1);
+            *(list+out) = NULL;
+            int status = execvp(list[0], list);
+            if (status == -1) {
+              printf("Error: %s\n", strerror(errno));
+            }
+            return 0;
+          }
         }
       }
-      // else if (in) {
-      //   int newfile = open(*(list), O_RDONLY);
-      //   if (newfile == -1) {
-      //     printf("Error: %s\n", strerror(errno));
-      //   }
-      //
-      //   int f = fork();
-      //   if (f) {
-      //     int * status;
-      //     wait(status);
-      //   }
-      //   else {
-      //     //int stdout = dup(1);
-      //     dup2(newfile, 0);
-      //     *(list+index) = NULL;
-      //     int status = execvp(list[0], list);
-      //     if (status == -1) {
-      //       printf("Error: %s\n", strerror(errno));
-      //     }
-      //     return 0;
-      //   }
-      // }
+      else if (in) {
+        int newfile = open(*(list+in+1), O_RDONLY);
+        if (newfile == -1) {
+          printf("Error: %s\n", strerror(errno));
+        }
+        else {
+          int f = fork();
+          if (f) {
+            int * status;
+            wait(status);
+          }
+          else {
+            //int stdout = dup(1);
+            dup2(newfile, 0);
+            *(list+in) = NULL;
+            int status = execvp(list[0], list);
+            if (status == -1) {
+              printf("Error: %s\n", strerror(errno));
+            }
+            return 0;
+          }
+        }
+      }
       else if (!strcmp(*(list), "cd")) {
         int status = chdir(*(list+1));
         if (status == -1) {
