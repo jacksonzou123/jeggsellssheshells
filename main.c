@@ -28,56 +28,12 @@ int main(int argc, char *argv[]) {
       parseSpace(hold, list);
       //put input string into array
 
+      //int pipes = checkpipe(list);
       int out = checkout(list);
       int in = checkin(list);
-      //printf("index: %d\n", index);
-      if (out) {
-        //printf("I am running\n");
-        int newfile = open(*(list+out+1), O_CREAT|O_TRUNC|O_WRONLY);
-        if (newfile == -1) {
-          printf("Error: %s\n", strerror(errno));
-        }
-        else {
-          int f = fork();
-          if (f) {
-            int * status;
-            wait(status);
-          }
-          else {
-            //int stdout = dup(1);
-            dup2(newfile, 1);
-            *(list+out) = NULL;
-            int status = execvp(list[0], list);
-            if (status == -1) {
-              printf("Error: %s\n", strerror(errno));
-            }
-            return 0;
-          }
-        }
-      }
-      else if (in) {
-        int newfile = open(*(list+in+1), O_RDONLY);
-        if (newfile == -1) {
-          printf("Error: %s\n", strerror(errno));
-        }
-        else {
-          int f = fork();
-          if (f) {
-            int * status;
-            wait(status);
-          }
-          else {
-            //int stdout = dup(1);
-            dup2(newfile, 0);
-            *(list+in) = NULL;
-            int status = execvp(list[0], list);
-            if (status == -1) {
-              printf("Error: %s\n", strerror(errno));
-            }
-            return 0;
-          }
-        }
-      }
+      //if (pipes) {}
+      if (out) {}
+      else if (in) {}
       else if (!strcmp(*(list), "cd")) {
         int status = chdir(*(list+1));
         if (status == -1) {
@@ -85,7 +41,6 @@ int main(int argc, char *argv[]) {
         }
       }
       //runs if user is trying to change directory
-
       else if (!strcmp(*(list), "exit")) {
         return 0;
       }
